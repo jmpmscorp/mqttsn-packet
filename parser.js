@@ -39,8 +39,13 @@ Parser.prototype.asyncParse = function parserAsyncParse(buf){
   self.packet = new Packet();
 
   return new Promise( (resolve, reject) => {
-    if(!self._parseHeader()) return reject('Error in header');
-    if(!self._parsePayload()) return reject('Unknown command or payload error');
+    if(!self._parseHeader()){
+      return reject('Error in header');
+    } 
+
+    if(!self._parsePayload()) {
+      return reject('Unknown command or payload error');
+    }
     
     return resolve(self.packet);
   })
